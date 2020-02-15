@@ -95,16 +95,16 @@ $(function(){
     });
 
     $('.contact-form-a').on('click', function(e) {
-        jq_data = $(this).attr('data-jq');
-        if (jq_data !== ''){
-            jq_data = $.parseJSON(jq_data);
-        }
-        buid = $(this).find('input[name=buid]').attr('data-buid');
+        buid = $(this).attr('data-buid');
         form = $('#contact_form_'+buid);
         success = $('#success_'+buid);
         errors = $('#errors_'+buid);
         captcha_img = $('#captcha_img_' + buid);
         ccm_captcha_image = $('.ccm-captcha-image');
+        jq_data = form.find('input[name=buid]').attr('data-jq');
+        if (jq_data !== ''){
+            jq_data = $.parseJSON(jq_data);
+        }
         
         if (jq_data.jq_popup === true) {
             form.removeClass('hidden');

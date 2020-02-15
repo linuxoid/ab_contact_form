@@ -30,7 +30,7 @@ $form_action = $view->action('submit', $app->make('token')->generate('contact_fo
 
 <div class="ab-contact-form">
     <?php if ($popup) {?>
-        <a href="#contact-form-<?php echo $buid; ?>" id="contact_form_a_<?php echo $buid; ?>" class="btn btn-primary" data-buid="<?php echo $buid; ?>"><i class='fa fa-envelope'></i> <?php echo $form_button_text; ?></a>
+        <a href="#contact-form-<?php echo $buid; ?>" class="contact-form-a" id="contact_form_a_<?php echo $buid; ?>" class="btn btn-primary" data-buid="<?php echo $buid; ?>"><i class='fa fa-envelope'></i> <?php echo $form_button_text; ?></a>
     <?php }?>
 
     <div class="row <?php if ($popup) { echo "mfp-hide"; } ?> contact-form-block" id="contact-form-<?php echo $buid; ?>">
