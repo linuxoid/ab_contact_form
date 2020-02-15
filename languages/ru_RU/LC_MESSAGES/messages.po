@@ -1,0 +1,276 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ab_contact_form 0.9.9\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2018-03-10T14:21:46+11:00\n"
+"PO-Revision-Date: 2018-03-10T14:21:46+11:00\n"
+"Language: ru_RU\n"
+"Plural-Forms: nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);\n"
+
+#: packages/ab_contact_form/controller.php:27
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:53
+msgid "Add contact form with advanced security features"
+msgstr "Добавить форму обратной связи с расширенными функциями безопасности"
+
+#: packages/ab_contact_form/controller.php:32
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:58
+msgid "Advanced Contact Form"
+msgstr "Контактная форма"
+
+#: packages/ab_contact_form/controller.php:40
+msgid "Customized Securimage Captcha"
+msgstr "Кастомизированная Securimage Captcha"
+
+#: packages/ab_contact_form/elements/dashboard/install_post.php:4
+#: packages/ab_contact_form/blocks/ab_contact_form/form.php:120
+msgid "captcha configuration"
+msgstr "настройки сaptcha"
+
+#: packages/ab_contact_form/elements/dashboard/install_post.php:9
+msgid "Securimage open-source free PHP Captcha script"
+msgstr "Securimage бесплатный PHP Captcha скрипт с открытым кодом"
+
+#: packages/ab_contact_form/elements/dashboard/install_post.php:10
+#: packages/ab_contact_form/blocks/ab_contact_form/form.php:138
+msgid "You installed the new contact form with advanced security features. Go to the system %s to complete captcha setup."
+msgstr "Вы установили новую форму обратной связи с расширенными функциями безопасности. Проследуйте в системные %s для завершения конфигурации captcha."
+
+#: packages/ab_contact_form/elements/dashboard/install_post.php:11
+msgid "Check out Securimage site if you want to learn more about how to get started with the %s captcha system."
+msgstr "Ознакомьтесь с сайтом Securimage, если вы хотите узнать больше о том, как начать работу с системой %s captcha."
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:69
+msgid "Name must be 2 to 60 characters"
+msgstr "Имя должно быть от 2 до 60 символов"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:70
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:323
+msgid "Email entered incorrectly"
+msgstr "Емейл адрес введён неверно"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:71
+msgid "Message must be 10 to 1000 characters"
+msgstr "Сообщение должно быть от 10 до 1000 символов"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:72
+msgid "Code from picture entered incorrectly"
+msgstr "Проверочный код с картинки введен неверно"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:73
+msgid "To prevent spam and abusing contact form, sending messages from IP address %s is prohibited"
+msgstr "Для предотвращения спама и злоупотреблений с отправкой электронной формы, отправка сообщения с IP адреса %s запрещена"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:74
+msgid "To prevent spam and abusing contact form, sending messages with domain %s is prohibited"
+msgstr "Для предотвращения спама и злоупотреблений с отправкой электронной формы, использование домена %s запрещено"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:75
+msgid "Confirmation of validity of domain %s failed"
+msgstr "Не удалось установить подлинность домена %s"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:76
+msgid "Cross-site request forgery form token authentication failed"
+msgstr "Для предотвращения межсайтовой подделки запроса, не удалось подтвердить соответствие токена формы"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:77
+msgid "If you experience difficulties sending your message, please send it by email to %s"
+msgstr "Если происходят трудности с отправкой сообщения, пожалуйста пошлите его по емайлу на %s"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:78
+msgid "Your message has just been sent, please wait for some time before sending another message"
+msgstr "Ваше сообщение только что было отправлено, пожалуйста подождите некоторое время прежде чем отправлять новое сообщение"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:79
+msgid "Errors found:"
+msgstr "Обнаружены ошибки:"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:80
+msgid "Your message has been sent. Thank you."
+msgstr "Ваше сообщение было успешно отправлено. Спасибо."
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:96
+msgid "Name"
+msgstr "Имя"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:97
+msgid "Your name 2-60 characters"
+msgstr "Ваше имя 2-60 символов"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:98
+msgid "Email"
+msgstr "Емейл"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:99
+msgid "Your email 8-100 latin characters"
+msgstr "Ваш емейл адрес 8-100 латинских символов"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:100
+msgid "Message"
+msgstr "Сообщение"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:101
+msgid "Your message 10-1000 characters"
+msgstr "Ваше сообщение 10-1000 символов"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:102
+msgid "Code check"
+msgstr "Код проверки"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:103
+msgid "Code from picture 4-6 characters"
+msgstr "Проверочный код с картинки 4-6 символов"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:104
+msgid "Click on picture to reload code"
+msgstr "Нажмите на изображение, чтобы перезагрузить код"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:129
+#: packages/ab_contact_form/blocks/ab_contact_form/view.php:52
+#: packages/ab_contact_form/blocks/ab_contact_form/view.php:59
+#: packages/ab_contact_form/blocks/ab_contact_form/view.php:66
+#: packages/ab_contact_form/blocks/ab_contact_form/view.php:87
+#: packages/ab_contact_form/blocks/ab_contact_form/view.php:100
+msgid "Required"
+msgstr "Обязательно"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:131
+msgid "Please make sure the form is filled in correctly"
+msgstr "Пожалуйста убедитесь, что форма заполнена правильно"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:132
+msgid "Form response failure, form might not have been sent"
+msgstr "Ошибка ответа формы, сообщение могло быть не отправлено"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:253
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:266
+msgid "Date: "
+msgstr "Дата: "
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:254
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:267
+msgid "Host IP: "
+msgstr "IP хоста: "
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:255
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:268
+msgid "Host Name: "
+msgstr "Имя хоста: "
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:256
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:269
+msgid "Proxy IP: "
+msgstr "IP прокси: "
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:257
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:270
+msgid "Proxy Name: "
+msgstr "Имя прокси: "
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:258
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:272
+msgid "Name: "
+msgstr "Имя: "
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:259
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:273
+msgid "Email: "
+msgstr "Емейл: "
+
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:260
+#: packages/ab_contact_form/blocks/ab_contact_form/controller.php:274
+msgid "Message: "
+msgstr "Сообщение: "
+
+#: packages/ab_contact_form/blocks/ab_contact_form/form.php:7
+msgid "Form title"
+msgstr "Название формы"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/form.php:8
+#: packages/ab_contact_form/blocks/ab_contact_form/form.php:76
+msgid "Contact Form"
+msgstr "Форма обратной связи"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/form.php:14
+msgid "Send form to email"
+msgstr "Отослать форму на емейл"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/form.php:24
+msgid "Show the following message if form submission fails?"
+msgstr "Показывать следующее сообщение при ошибке отправки формы?"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/form.php:33
+msgid "[EMAIL]"
+msgstr "[ЕМЕЙЛ]"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/form.php:34
+msgid "Note: That [EMAIL] address will be shown on the form if submission fails"
+msgstr "Замечание: [ЕМЕЙЛ] адрес будет показан на форме, если произойдет ошибка"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/form.php:42
+msgid "Email subject"
+msgstr "Тема емейла"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/form.php:43
+msgid "Question from website"
+msgstr "Вопрос с веб-сайта"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/form.php:49
+msgid "Form send button text"
+msgstr "Текст кнопки отослать"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/form.php:50
+msgid "Send"
+msgstr "Отправить"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/form.php:56
+msgid "Wait (seconds) between form submissions"
+msgstr "Ожидание (сек) между отправками форм"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/form.php:66
+msgid "Lightboxed form?"
+msgstr "Форма в всплывающем окне?"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/form.php:75
+msgid "Form popup button text"
+msgstr "Текст кнопки для всплывающего окна"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/form.php:87
+msgid "Blacklist domains?"
+msgstr "Использовать черный список доменов?"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/form.php:96
+msgid "Blacklisted domains (comma separated)"
+msgstr "Черный список доменов (разделенных запятой)"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/form.php:108
+msgid "Show Captcha?"
+msgstr "Показывать Captcha?"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/form.php:121
+msgid "Available captcha libraries: "
+msgstr "Доступные библиотеки captcha"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/form.php:129
+msgid "(currently in use)"
+msgstr "(в настоящее время используется)"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/form.php:139
+msgid "Go to %s if you want to change the system captcha library"
+msgstr "Перейдите в %s, если желаете изменить библиотеку captcha"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/form.php:156
+msgid "Email address error:"
+msgstr "Ошибка в адресе электронной почты:"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/form.php:157
+msgid "Email address entered is not valid!"
+msgstr "Недействительный адрес электронной почты!"
+
+#: packages/ab_contact_form/blocks/ab_contact_form/form.php:175
+msgid "Numbers only"
+msgstr "Только цифры"
