@@ -1,0 +1,54 @@
+# ab_contact_form
+
+English
+
+Contact form with advanced security features
+
+Note: Minimum required (verified) version of C5 - 8.3.0!
+
+- IP check against Concrete5 CMS IP blacklist
+- Email domain check against user defined domain blacklist
+- Both user and server side form fields validation for correctness
+- Domain DNS check for existing record
+- Cross site request forgery protection
+- Spam, abuse and injection protection (form inputs sanitizing, limit on submission frequency)
+- jQuery/AJAX/PHP submission - does not refresh page
+- Standard or lightboxed design (user selected)
+- Multiple forms work independently on same page
+- Sends email in plain text and HTML
+- English and Russian languages
+- Lists host/proxy IP/name (if not blocked)
+- Responsive design
+- Verified to work with C5 8.3.0 to 8.4.0
+
+Notes:
+- User defined design of Captcha image (only manual settings in code at this stage)
+- Form does NOT have user editable fields
+- Customized Securimage Captcha uses the Concrete5 core Securimage library (unfortunately with its own bugs and issues)
+
+
+Русский
+
+Форма обратной связи с расширенными функциями безопасности
+
+Внимание: Минимальная требуемая (проверенная) версия С5 - 8.3.0!
+
+- Проверка IP адреса против черного списка IP адресов системы управления Concrete5
+- Проверка домена емейла против черного списка доменов, определенного пользователем
+- Проверка корректности заполнения формы на стороне пользователя и на сервере
+- Проверка домена на существование записи DNS
+- Предотвращения межсайтовой подделки запроса
+- Предотвращения спама и злоупотреблений с отправкой электронной формы ("дезинфекция" ввода данных, ограничение на частоту отправки)
+- Обработка с помощью jQuery/AJAX/PHP - не перезагружает страницу
+- Стандартный дизайн или дизайн в сплывающем окне (по выбору пользователя)
+- Множество форм работают независимо на одной странице
+- Отправляет емейл в режиме текста и HTML
+- На русском и английском языке
+- Указывает IP адрес / имя хоста/прокси сервера (если не блокируется)
+- Адаптивный дизайн
+- Работа проверена с версией C5 8.3.0 до 8.4.0
+
+Примечания:
+- Кастомизация дизайна картинки Captcha (на данный момент возможна только вручную в коде)
+- Форма не имеет изменяемых пользователем полей
+- Кастомизированная Securimage Captcha использует системную библиотеку Concrete5 Securimage (к сожалению со своими багами и проблемами)
