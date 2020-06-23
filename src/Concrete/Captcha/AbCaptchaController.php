@@ -29,14 +29,14 @@ class AbCaptchaController extends \Concrete\Core\Captcha\SecurimageController
 {
     public function displayCaptchaPicture()
     {
-        $this->securimage->image_width = 240;
-		$this->securimage->image_height = 60;
+        //$this->securimage->image_width = 240;
+		//$this->securimage->image_height = 60;
 		$this->securimage->image_bg_color = new Securimage_Color('#d9edf7');
 		$this->securimage->line_color = new Securimage_Color('#696969');
 		
-		$this->securimage->text_color = new Securimage_Color('#FF4100');
+		$this->securimage->text_color = new Securimage_Color('#fe6b61');
 		$this->securimage->use_transparent_text = true;
-		$this->securimage->text_transparency_percentage = 40;
+		$this->securimage->text_transparency_percentage = 20;
 		
 		$this->securimage->image_signature = parse_url(BASE_URL, PHP_URL_HOST);
 		$this->securimage->signature_color = new Securimage_Color('#363636');

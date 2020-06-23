@@ -30,12 +30,12 @@ $form_action = $view->action('submit', $app->make('token')->generate('contact_fo
 
 <div class="ab-contact-form">
     <?php if ($popup) {?>
-        <a href="#contact-form-<?php echo $buid; ?>" class="contact-form-a" id="contact_form_a_<?php echo $buid; ?>" class="btn btn-primary" data-buid="<?php echo $buid; ?>"><i class='fa fa-envelope'></i> <?php echo $form_button_text; ?></a>
+        <a href="#contact-form-<?php echo $buid; ?>" class="contact-form-a" id="contact_form_a_<?php echo $buid; ?>" data-buid="<?php echo $buid; ?>"><i class='fa fa-envelope'></i><?php echo $form_button_text; ?></a>
     <?php }?>
 
-    <div class="row <?php if ($popup) { echo "mfp-hide"; } ?> contact-form-block" id="contact-form-<?php echo $buid; ?>">
+    <div class="<?php if ($popup) { echo "mfp-hide"; } ?> contact-form-block" id="contact-form-<?php echo $buid; ?>">
         <div class="form-group">
-            <div id="spinner_img_<?php echo $buid; ?>" class="spinner-img hidden"><img src="<?php echo $img_url; ?>spinner.gif" /></div>
+            <div id="spinner_img_<?php echo $buid; ?>" class="spinner-img hidden"><i class="fa fa-spinner fa-spin"></i></div>
             <div id="success_<?php echo $buid; ?>" class="success hidden"></div>
             <div id="errors_<?php echo $buid; ?>" class="errors hidden"></div>
         </div>
@@ -43,7 +43,7 @@ $form_action = $view->action('submit', $app->make('token')->generate('contact_fo
         <form id="contact_form_<?php echo $buid; ?>" 
             class="contact-form" 
             enctype="multipart/form-data" 
-            action="<?php echo $form_action?>" 
+            action="<?php echo $form_action; ?>" 
             method="post" 
             accept-charset="utf-8">
             
@@ -84,8 +84,6 @@ $form_action = $view->action('submit', $app->make('token')->generate('contact_fo
                 if (Library::getActive()->getSystemCaptchaLibraryHandle() === 'ab_captcha') {
                     $captcha->setPictureAttributes([
                         'id' => 'captcha_img_'.$buid,
-                        'width' => 240,
-                        'height' => 60,
                     ]);
                     ?>
                     
@@ -139,7 +137,7 @@ $form_action = $view->action('submit', $app->make('token')->generate('contact_fo
             ?>
             
             <div class="form-group">
-                <?php echo $form->submit('submit_'.$buid, $send_button_text, ['class' => "btn btn-default"]); ?>
+                <?php echo $form->submit('submit_'.$buid, $send_button_text, ['class' => "btn-lizard"]); ?>
             </div>
         </form>
     </div>

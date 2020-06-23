@@ -31,7 +31,7 @@ class Controller extends Package {
 
 	protected $pkgHandle = 'ab_contact_form';
 	protected $appVersionRequired = '8.3.0';
-	protected $pkgVersion = '2.0.0';
+	protected $pkgVersion = '2.1.1';
 	protected $pkgAutoloaderMapCoreExtensions = true;
 	
 	public function getPackageDescription() 

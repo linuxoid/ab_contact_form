@@ -19,34 +19,35 @@
  * @package Concrete\Package\ab_contact_form
  */
 
-$(function(){
+$(document).ready(function() {
     $('.contact-form').submit(function(e) {
         e.preventDefault();
         e.stopPropagation();
         
-        jq_data = $(this).find('input[name=buid]').attr('data-jq');
+        var jq_data = $(this).find('input[name=buid]').attr('data-jq');
         if (jq_data !== ''){
             jq_data = $.parseJSON(jq_data);
         }
-        buid = $(this).find('input[name=buid]').attr('data-buid');
-        form = $('#contact_form_'+buid);
-        success = $('#success_'+buid);
-        errors = $('#errors_'+buid);
+        var buid = $(this).find('input[name=buid]').attr('data-buid');
+        var form = $('#contact_form_' + buid);
+        var code = $('#code_' + buid);
+        var success = $('#success_' + buid);
+        var errors = $('#errors_' + buid);
+        var ccm_captcha_img = $('.ccm-captcha-image');
         
         success.empty();
         errors.empty();
         
-        spinner_img = $('#spinner_img_' + buid);
+        var spinner_img = $('#spinner_img_' + buid);
         
-        error_list = $('<ul id="error_list_' + buid + '"></ul>');
+        var error_list = $('<ul id="error_list_' + buid + '"></ul>');
         
-        post_data = {
+        var post_data = {
         'name': $('#name_' + buid).val(),
         'email': $('#email_' + buid).val(),
         'message': $('#message_' + buid).val(),
         'ccmCaptchaCode': $('#code_' + buid).val(),
         'buid': buid,
-        'g-recaptcha-response': ($('.g-recaptcha')[0]? grecaptcha.getResponse() : null),
         };
         
         spinner_img.removeClass('hidden');
@@ -58,50 +59,65 @@ $(function(){
         })
         .done(function(response) {
             error_list.empty();
+            var alert = null;
             spinner_img.addClass('hidden');
             if (response['status'] === 'ok') {
                 errors.addClass('hidden');
                 success.removeClass('hidden');
-                success.append('<p>' + jq_data.jq_success + '</p>');
+                alert = $('<div class="alert alert-success"><span class="alert-link">' + jq_data.jq_success + '</span></div>');
+                success.append(alert);
                 form[0].reset();
                 if (jq_data.jq_popup == true) {
                     form.addClass('hidden');
                 }
-                $('.ccm-captcha-image').trigger('click');
+                ccm_captcha_img.trigger('click');
             }
             else {
                 success.addClass('hidden');
                 errors.removeClass('hidden');
-                errors.append('<p>' + jq_data.jq_errors + '</p>');
-                errors.append(error_list);
+                alert = $('<div class="alert alert-danger"><span class="alert-link">' + jq_data.jq_errors + '</span></div>');
+                alert.append(error_list);
                 $.each(response['data'], function(i, v){
                     error_list.append('<li>' + v + '</li>');
                 });
-                errors.append('<p>' + jq_data.jq_submit_error + '</p>');
+                alert.append('<p>' + jq_data.jq_submit_error + '</p>');
+                errors.append(alert);
+                code.val('');
+                var t = (new Date()).getTime();
+                ccm_captcha_img.each(function(i, v) {
+                    $(v).attr('src', $(v).attr('src').replace(/([?&]nocache=)(\d+)/, '$1' + t));
+                });
             }
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
             spinner_img.addClass('hidden');
             success.addClass('hidden');
             errors.removeClass('hidden');
-            errors.append('<p>' + jq_data.jq_errors + '</p>');
-            errors.append('<p>' + errorThrown + '</p>');
+            alert = $('<div class="alert alert-danger"><span class="alert-link">' + jq_data.jq_errors + '</span></div>');
+            alert.append('<p>' + errorThrown + '</p>');
+            alert.append('<p>' + jq_data.jq_submit_error + '</p>');
+            errors.append(alert);
+            code.val('');
+            var t = (new Date()).getTime();
+            ccm_captcha_img.each(function(i, v) {
+                $(v).attr('src', $(v).attr('src').replace(/([?&]nocache=)(\d+)/, '$1' + t));
+            });
         });
         
         $('#contact_form_' + buid + ' input').blur();
-        if ($('.g-recaptcha')[0]) {
-            grecaptcha.reset();
-        };
+        $('#contact_form_' + buid + ' textarea').blur();
     });
 
     $('.contact-form-a').on('click', function(e) {
-        buid = $(this).attr('data-buid');
-        form = $('#contact_form_'+buid);
-        success = $('#success_'+buid);
-        errors = $('#errors_'+buid);
-        captcha_img = $('#captcha_img_' + buid);
-        ccm_captcha_image = $('.ccm-captcha-image');
-        jq_data = form.find('input[name=buid]').attr('data-jq');
+        var buid = $(this).attr('data-buid');
+        var form = $('#contact_form_'+buid);
+        var success = $('#success_'+buid);
+        var errors = $('#errors_'+buid);
+        var captcha_img = $('#captcha_img_' + buid);
+        var ccm_captcha_img = $('.ccm-captcha-image');
+        
+        var jq_data = form.find('input[name=buid]').attr('data-jq');
+        
         if (jq_data !== ''){
             jq_data = $.parseJSON(jq_data);
         }
@@ -116,9 +132,6 @@ $(function(){
             errors.empty();
             if (captcha_img.length) {
                 captcha_img.attr('src', captcha_img.attr('src').replace(/([?&]nocache=)(\d+)/, '$1' + ((new Date()).getTime())));
-            }
-            else if (ccm_captcha_image[0]) {
-                ccm_captcha_image.trigger('click');
             }
             
             e.preventDefault();
@@ -174,7 +187,7 @@ $(function(){
         el = $('#'+e.target.id);
         id = e.target.id;
         v = $('#'+e.target.id).val();
-        if (!v || v.length < 2 || v.length > 256) {
+        if (!v || v.length < 2 || v.length > 100) {
             $('#error_'+id).removeClass('hidden');
             $('#tip_'+id).addClass('hidden');
             $(el).addClass('problem');
@@ -193,7 +206,7 @@ $(function(){
         id = e.target.id;
         v = $('#'+e.target.id).val();
         email = /^([_a-zA-Z0-9-]+)(\.[_a-zA-Z0-9-]+)*@([a-zA-Z0-9-]+)(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,10})$/;
-        if (!email.test(v) || v.length < 8 || v.length > 256) {
+        if (!email.test(v) || v.length < 8 || v.length > 100) {
             $('#error_'+id).removeClass('hidden');
             $('#tip_'+id).addClass('hidden');
             $(el).addClass('problem');

@@ -25,6 +25,7 @@ namespace Concrete\Package\AbContactForm\Block\AbContactForm;
 
 use Concrete\Core\Block\BlockController;
 use Concrete\Core\Package\Package;
+use Concrete\Core\Support\Facade\Config;
 
 class Controller extends BlockController
 {
@@ -40,6 +41,7 @@ class Controller extends BlockController
     protected $error_name = '';
     protected $error_email = '';
     protected $error_message = '';
+    protected $error_banned_words = '';
     protected $error_code = '';
     protected $error_ip = '';
     protected $error_domain = '';
@@ -75,15 +77,16 @@ class Controller extends BlockController
     
     public function on_start() 
     {
-        $this->error_name = t('Name must be 2 to 60 characters');
+        $this->error_name = t('Name must be 2 to 100 symbols');
         $this->error_email = t('Email entered incorrectly');
-        $this->error_message = t('Message must be 10 to 1000 characters');
+        $this->error_message = t('Message must be 10 to 1000 symbols');
+        $this->error_banned_words = t('Banned words detected');
         $this->error_code = t('Code from picture entered incorrectly');
         $this->error_ip = t('To prevent spam and abusing contact form, sending messages from IP address %s is prohibited');
         $this->error_domain = t('To prevent spam and abusing contact form, sending messages with domain %s is prohibited');
         $this->error_no_domain = t('Confirmation of validity of domain %s failed');
         $this->error_token = t('Something went wrong, please try again');
-        $this->error_submit = t('Form has not been sent. If you experience difficulties sending your message, please send it by email to %s.');
+        $this->error_submit = t('Message has not been sent. If you experience difficulties sending your message, please send it by email to %s.');
         $this->error_num_submit = t('Your message has already been sent, please wait for %s before sending another one');
         $this->errors = t('Errors found:');
         $this->success = t('Your message has been sent. Thank you.');
@@ -103,13 +106,13 @@ class Controller extends BlockController
     public function view() 
     {
         $entry_name = t('Name');
-        $entry_name_tip = t('Max 256 characters');
+        $entry_name_tip = t('Max 100 symbols');
         $entry_email = t('Email');
-        $entry_email_tip = t('Max 256 characters');
+        $entry_email_tip = t('Max 100 symbols');
         $entry_message = t('Message');
-        $entry_message_tip = t('Max 1000 characters');
+        $entry_message_tip = t('Max 1000 symbols');
         $entry_code = t('Code check');
-        $entry_code_tip = t('Code from picture 4-6 characters');
+        $entry_code_tip = t('Code from picture 4-6 symbols');
         $entry_code_img = t('Click on picture to reload code');
         
         $this->set('entry_name', $entry_name);
@@ -127,8 +130,8 @@ class Controller extends BlockController
         $this->set('entry_code_img', $entry_code_img);
         
         $jq_data = [
-            'jq_errors' => '<span>' . $this->errors . '</span>',
-            'jq_submit_error' => $this->show_submit_error ? sprintf($this->error_submit, '<span>' . $this->email_to . '</span>') : '',
+            'jq_errors' => $this->errors,
+            'jq_submit_error' => sprintf($this->error_submit, '<span>' . $this->email_to . '</span>'),
             'jq_success' => $this->success,
             'jq_popup' => $this->popup ? true : false,
         ];
@@ -163,10 +166,9 @@ class Controller extends BlockController
     
     public function validateForm($data) 
     {
-        $ht = $this->app->make('helper/text');
-        $name = $ht->sanitize($data['name']);
-        $email = $ht->sanitize(mb_strtolower(preg_replace('((?:\n|\r|\t|%0A|%0D|%08|%09)+)i' , '', $data['email']), 'UTF-8'));
-        $message = strip_tags(html_entity_decode($data['message'], ENT_QUOTES, 'UTF-8'));
+        $name = trim($data['name']);
+        $email = mb_strtolower(preg_replace('((?:\n|\r|\t|%0A|%0D|%08|%09)+)i' , '', trim($data['email'])), 'UTF-8');
+        $message = trim(strip_tags(html_entity_decode($data['message'], ENT_QUOTES, 'UTF-8')));
         $domain_name = substr(strrchr($email, "@"), 1);
         
         $HTTP_X_FORWARDED_FOR = trim($this->app->request->server->get('HTTP_X_FORWARDED_FOR'));
@@ -192,11 +194,11 @@ class Controller extends BlockController
             array_push($this->form_errors, sprintf($this->error_ip, '<span>' . $this->host_ip . '</span>'));
         }
 
-        if ((mb_strlen($name, 'UTF-8') < 2) || (mb_strlen($name, 'UTF-8') > 256)) {
+        if ((mb_strlen($name, 'UTF-8') < 2) || (mb_strlen($name, 'UTF-8') > 100)) {
             array_push($this->form_errors, $this->error_name);
         }
         
-        if ((mb_strlen($email, 'UTF-8') < 8) || (mb_strlen($email, 'UTF-8') > 256)) {
+        if ((mb_strlen($email, 'UTF-8') < 8) || (mb_strlen($email, 'UTF-8') > 100)) {
             array_push($this->form_errors, $this->error_email);
         }
         elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -213,6 +215,12 @@ class Controller extends BlockController
 
         if ((mb_strlen($message, 'UTF-8') < 10) || (mb_strlen($message, 'UTF-8') > 1000)) {
             array_push($this->form_errors, $this->error_message);
+        }
+        
+        if (Config::get('conversations.banned_words') && (
+            $this->app->make('helper/validation/banned_words')->hasBannedWords($name) ||
+            $this->app->make('helper/validation/banned_words')->hasBannedWords($message))) {
+            array_push($this->form_errors, $this->error_banned_words);
         }
         
         $db = $this->app->make('database')->connection();
@@ -249,20 +257,24 @@ class Controller extends BlockController
     public function mailForm($data) 
     {
         $dh = $this->app->make('helper/date');
+        $security_service = $this->app->make('helper/security');
+        $name = $security_service->sanitizeString($data['name']);
+        $email = $security_service->sanitizeString($data['email']);
+        $message = trim(strip_tags(html_entity_decode($data['message'], ENT_QUOTES, 'UTF-8')));
         
         $subject = html_entity_decode(sprintf($this->email_subject . " %s", BASE_URL), ENT_QUOTES, 'UTF-8');
         
         $txt_message = '';
-        $txt_message .= $this->app->make('site')->getSite()->getSiteName() . '\r\n';
-        $txt_message .= t('Date: ') . $dh->formatDateTime(date('H:i:s T O l, j F Y')) . '\r\n\r\n';
-        $txt_message .= $subject . '\r\n\r\n';
-        $txt_message .= t('Host IP: ') . $this->host_ip . '\r\n';
-        $txt_message .= t('Host Name: ') . $this->host_name . '\r\n';
-        $txt_message .= t('Proxy IP: ') . $this->proxy_ip . '\r\n';
-        $txt_message .= t('Proxy Name: ') . $this->proxy_name . '\r\n\r\n';
-        $txt_message .= t('Name: ') . $data['name'] . '\r\n';
-        $txt_message .= t('Email: ') . $data['email'] . '\r\n\r\n';
-        $txt_message .= t('Message: ') . '\r\n\r\n';
+        $txt_message .= $this->app->make('site')->getSite()->getSiteName() . "\r\n";
+        $txt_message .= t('Date: ') . $dh->formatDateTime(date('H:i:s T O l, j F Y')) . "\r\n\r\n";
+        $txt_message .= $subject . "\r\n\r\n";
+        $txt_message .= t('Host IP: ') . $this->host_ip . "\r\n";
+        $txt_message .= t('Host Name: ') . $this->host_name . "\r\n";
+        $txt_message .= t('Proxy IP: ') . $this->proxy_ip . "\r\n";
+        $txt_message .= t('Proxy Name: ') . $this->proxy_name . "\r\n\r\n";
+        $txt_message .= t('Name: ') . $name . "\r\n";
+        $txt_message .= t('Email: ') . $email . "\r\n\r\n";
+        $txt_message .= t('Message: ') . "\r\n\r\n";
         $txt_message .= $data['message'];
         
         $html_message = '';
@@ -282,18 +294,18 @@ class Controller extends BlockController
         $html_message .= '<span style="font-weight: bold;">' . t('Proxy Name: ') . '</span>' . $this->proxy_name;
         $html_message .= '</p>';
         $html_message .= '<p>';
-        $html_message .= '<span style="font-weight: bold;">' . t("Name: ") . '</span>' . $data['name'] . '<br />';
-        $html_message .= '<span style="font-weight: bold;">' . t("Email: ") . '</span>' . $data['email'];
+        $html_message .= '<span style="font-weight: bold;">' . t("Name: ") . '</span>' . $name . '<br />';
+        $html_message .= '<span style="font-weight: bold;">' . t("Email: ") . '</span>' . $email;
         $html_message .= '</p>';
         $html_message .= '<p><span style="font-weight: bold;">' . t("Message: ") . '</span></p>';
-        $html_message .= '<p>' . str_replace('\r\n','<br />', $data['message']) . '</p>';
+        $html_message .= '<p>' . str_replace("\r\n",'<br />', $data['message']) . '</p>';
         $html_message .= '</body>';
         $html_message .= '</html>';
         
         $mh = $this->app->make('mail');
         $mh->to($this->email_to);
-        $mh->from($data['email'], $data['name']);
-        $mh->replyto($data['email'], $data['name']);
+        $mh->from($email, $name);
+        $mh->replyto($email, $name);
         $mh->setSubject($subject);
         $mh->setBody($txt_message);
         $mh->setBodyHTML($html_message);
@@ -335,7 +347,7 @@ class Controller extends BlockController
         $e = $this->app->make('helper/validation/error');
         $email_to = trim($data['email_to']);
         
-        if ((mb_strlen($email_to, 'UTF-8') < 8) || (mb_strlen($email_to, 'UTF-8') > 256) || !filter_var($email_to, FILTER_VALIDATE_EMAIL)) {
+        if ((mb_strlen($email_to, 'UTF-8') < 8) || (mb_strlen($email_to, 'UTF-8') > 100) || !filter_var($email_to, FILTER_VALIDATE_EMAIL)) {
             $e->add(t('Email entered incorrectly'));
         }
 

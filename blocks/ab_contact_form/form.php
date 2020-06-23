@@ -44,16 +44,16 @@
     <div class="form-group">
         <?php
         echo $form->label('form_title', t('Form title'));
-        echo $form->text('form_title', $form_title ? $form_title : t("Contact Form"), ['maxlength' => 256]);
-        echo '<p class="text-muted">' . t('Max 256 symbols') . '</p>';
+        echo $form->text('form_title', $form_title ? $form_title : t("Contact Form"), ['maxlength' => 100]);
+        echo '<p class="text-muted">' . t('Max 100 symbols') . '</p>';
         ?>
     </div>
         
     <div class="form-group">
         <?php
         echo $form->label('email_to', t('Send form to email') . '<span class="need">' . t('Required') . '</span>');
-        echo $form->text('email_to', $email_to, ['maxlength' => 256]);
-        echo '<p class="text-muted">' . t('Max 256 symbols') . '</p>';
+        echo $form->text('email_to', $email_to, ['maxlength' => 100]);
+        echo '<p class="text-muted">' . t('Max 100 symbols') . '</p>';
         ?>
     </div>
         
@@ -81,8 +81,8 @@
     <div class="form-group">
         <?php
         echo $form->label('email_subject', t('Email subject'));
-        echo $form->text('email_subject', $email_subject ? $email_subject : t("Question from website"), ['maxlength' => 256]);
-        echo '<p class="text-muted">' . t('Max 256 symbols') . '</p>';
+        echo $form->text('email_subject', $email_subject ? $email_subject : t("Question from website"), ['maxlength' => 100]);
+        echo '<p class="text-muted">' . t('Max 100 symbols') . '</p>';
         ?>
     </div>
         
@@ -139,8 +139,8 @@
             <div class="form-group">
                 <?php
                 echo $form->label('blacklisted_domains', t('Blacklisted domains (comma separated)'));
-                echo $form->text('blacklisted_domains', $blacklisted_domains ? $blacklisted_domains : "email.com,email.ru", ['maxlength' => 1024]);
-                echo '<p class="text-muted">' . t('Max 1024 symbols') . '</p>';
+                echo $form->text('blacklisted_domains', $blacklisted_domains ? $blacklisted_domains : "email.com,email.ru", ['maxlength' => 1000]);
+                echo '<p class="text-muted">' . t('Max 1000 symbols') . '</p>';
                 ?>
             </div>
         </div>
@@ -195,7 +195,7 @@ $(document).ready(function() {
     $('#ccm-form-submit-button').on('click', function(e){
         var v = $.trim($('#email_to').val());
         var email = /^([_a-zA-Z0-9-]+)(\.[_a-zA-Z0-9-]+)*@([a-zA-Z0-9-]+)(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,10})$/;
-        if (!email.test(v) || v.length < 8 || v.length > 256) {
+        if (!email.test(v) || v.length < 8 || v.length > 100) {
             e.preventDefault();  // stop form from submitting
             e.stopPropagation(); // stop anything else from listening to our event and screwing things up
             ConcreteAlert.error({

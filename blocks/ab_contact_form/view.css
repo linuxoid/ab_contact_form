@@ -2,9 +2,14 @@
     position: relative;
     background-color: #ffffff;
     margin: 10px auto;
-    padding: 10px 20px;
+    padding: 40px 20px 10px;
     border: 1px solid #cccccc;
     border-radius: 10px;
+}
+
+.contact-form-block .hidden {
+    display: none !important;
+    visibility: hidden !important;
 }
 
 .contact-form-block label {
@@ -17,69 +22,65 @@
     display: inline-block;
     text-align: left;
     margin: 0 auto;
-    margin-left: 20px;
-    color: #363636;
-    font-size: 0.8em;
+    margin-left: 10px;
+    font-size: 0.7em;
     font-weight: 400;
-    opacity: 0.5;
+    color: #fe6b61;
+    opacity: 0.8;
 }
 
-.contact-form-block input.problem, .contact-form-block textarea.problem {
-    background-color: #ffddcc;
+.contact-form-block input.problem, .contact-form-block textarea.problem { background-color: #f2dede; }
+
+.contact-form .btn-lizard {
+    background-color: #0099ff;
+    color: #ffffff;
+    font-weight: 700;
+    transition: all .25s linear;
 }
 
-.g-recaptcha > div {
-    display: block;
-    margin: 0 auto;
-}
+.contact-form-a i { margin-right: 5px; }
 
-.contact-form-block img {
+.contact-form-block .ccm-captcha-image {
     display: block;
     border: 1px solid #cccccc;
     margin: 0 auto 0 0 !important;
     margin-bottom: 0 !important;
     border-radius: 5px;
+    width: auto;
+    height: 60px;
 }
 
-.form-group .tip {
+.contact-form-block .form-group .tip {
     display: block;
     text-align: left;
     font-size: 0.75em;
     margin-top: 5px;
 }
 
-.spinner-img {
+.contact-form-block .spinner-img {
     display: block;
     width: 40px;
     height: 40px;
 }
 
-.spinner-img img {
-    border: none !important;
-}
+.contact-form-block .spinner-img i { font-size: 1.4em; }
 
-.error-name, .error-email, .error-message, .error-code {
-    color: #ff4100;
-}
+.contact-form-block .error-name, .error-email, .error-message, .error-code { color: #fe6b61; }
 
-.errors ul {
-    list-style-type: square;
-}
+.contact-form-block .errors ul { list-style-type: square; }
 
-.errors {
+.contact-form-block .errors {
     display: block;
     width: 100%;
-    color: #ff4100;
+    color: #fe6b61;
     font-size: 0.8em;
 }
 
-.errors span {
-    font-weight: 700;
-}
+.contact-form-block .errors span { font-weight: 700; }
 
-.success p {
+.contact-form-block .success p {
     display: block;
-    color: #0099ff;
+    color: #5f6868;
     font-size: 0.9em;
     font-weight: 700;
 }
@@ -139,4 +140,9 @@
 /* animate out */
 .my-mfp-zoom-in.mfp-removing.mfp-bg {
 	opacity: 0;
+}
+
+.mfp-close {
+    color: #696969 !important;
+    font-weight: 700;
 }
